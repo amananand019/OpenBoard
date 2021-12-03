@@ -23,9 +23,10 @@
   </head>
   <body>
     <!-- <h1>Canvas Example</h1> -->
-    <!-- drawing board -->
+    <!-- These are font awesome icons -->
     <i class="fas fa-square"></i>
     <i class="fas fa-grip-lines-vertical"></i>
+    <!-- drawing board -->
     <canvas></canvas>
   </body>
   <!-- html js inject -->
@@ -60,6 +61,7 @@
     });
 
     let boardTop = canvasBoard.getBoundingClientRect().top;
+    let boardLeft = canvasBoard.getBoundingClientRect().left;
     let ix, iy, fx, fy;
     body.addEventListener("mousedown", (e) => {
       console.log(e);
@@ -74,7 +76,7 @@
       console.log(e);
       //   let xPos = e.clientX;
       //   let yPos = e.clientY;
-      fx = e.clientX;
+      fx = e.clientX + boardLeft;
       fy = e.clientY - boardTop;
 
       let width = fx - ix;
