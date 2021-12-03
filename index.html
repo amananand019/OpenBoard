@@ -15,6 +15,45 @@
         margin-right: 30px;
         margin-left: 30px;
       }
+
+      .icon-pallet {
+        height: 50px;
+        background-color: lightgrey;
+        width: 800px;
+        margin-left: 100px;
+
+        /* tools */
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .red {
+        background-color: red;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+      .green {
+        background-color: green;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+
+      .blue {
+        background-color: blue;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+
+      .black {
+        background-color: black;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
     </style>
     <link
       rel="stylesheet"
@@ -24,9 +63,15 @@
   <body>
     <!-- <h1>Canvas Example</h1> -->
     <!-- These are font awesome icons -->
-    <i class="fas fa-square"></i>
-    <i class="fas fa-grip-lines-vertical"></i>
-    <!-- drawing board -->
+    <div class="icon-pallet">
+      <i class="fas fa-square"></i>
+      <i class="fas fa-grip-lines-vertical"></i>
+      <!-- drawing board -->
+      <div class="black"><!-- Black--></div>
+      <div class="red"><!-- Red --></div>
+      <div class="green"><!-- Green --></div>
+      <div class="blue"><!-- Blue --></div>
+    </div>
     <canvas></canvas>
   </body>
   <!-- html js inject -->
@@ -45,6 +90,27 @@
     let body = document.querySelector("body");
     //this line gives us the tool to draw on that canvas
     let tool = canvasBoard.getContext("2d");
+    tool.strokeStyle = "black";
+
+    //to change the color of the pensil stroke
+    let redColor = document.querySelector(".red");
+    let greenColor = document.querySelector(".green");
+    let blueColor = document.querySelector(".blue");
+    let blackColor = document.querySelector(".black");
+
+    blackColor.addEventListener("click", () => {
+      tool.strokeStyle = "black";
+    });
+    redColor.addEventListener("click", () => {
+      tool.strokeStyle = "red";
+    });
+    greenColor.addEventListener("click", () => {
+      tool.strokeStyle = "green";
+    });
+    blueColor.addEventListener("click", () => {
+      tool.strokeStyle = "blue";
+    });
+
     //rectangle build
     tool.fillStyle = "purple";
     //makes an area filled with color

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      /* It applies on all the elements of this page */
+      /* *{
+              border: 1px solid red;
+          } */
+
+      div {
+        border: 1px solid green;
+        /* background-color: lightpink; */
+      }
+
+      /* "." is used for class selection */
+      .outer {
+        /* margin-left: 30px;
+        margin-top: 30px; */
+        background-color: lightslategray;
+        border: 2px solid purple;
+        width: 200px;
+        height: 50px;
+        /* A flex container expands items to fill available 
+        free space or shrinks them to prevent overflow. */
+        display: flex;
+        /* horizontal alignment */
+        justify-content: space-evenly;
+        /* vertical alignment */
+        align-items: center;
+      }
+
+      /* "#" is used for id selection */
+      #red {
+        background-color: lightcoral;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+      #green {
+        background-color: lightgreen;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+      #blue {
+        background-color: lightblue;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+
+      #color-area {
+        border: 1px solid gray;
+        height: 100px;
+        width: 100px;
+        margin-top: 30px;
+        margin-left: 30px;
+      }
+      /* Applies to the body */
+      /* body {
+          border: 1px solid blue;
+        }
+
+        /* Applies to the html */
+      /* html {
+          border: 1px solid gray;
+        } */
+    </style>
+
+    <script>
+      let colorArea = document.getElementById("#color-area");
+      let redColor = document.querySelector("#red");
+      let greenColor = document.querySelector("#green");
+      let blueColor = document.querySelector("#blue");
+    </script>
+  </head>
+  <body>
+    <div class="outer">
+      <div id="red"><!-- Red --></div>
+      <div id="green"><!-- Green --></div>
+      <div id="blue"><!-- Blue --></div>
+    </div>
+    <div id="color-area"></div>
+  </body>
+</html>
