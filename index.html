@@ -16,6 +16,12 @@
         margin-left: 30px;
       }
 
+      .far {
+        font-size: 2rem;
+        margin-right: 30px;
+        margin-left: 30px;
+      }
+
       .icon-pallet {
         height: 50px;
         background-color: lightgrey;
@@ -64,7 +70,8 @@
     <!-- <h1>Canvas Example</h1> -->
     <!-- These are font awesome icons -->
     <div class="icon-pallet">
-      <i class="fas fa-square"></i>
+      <i class="fas fa-pencil-alt"></i>
+      <i class="far fa-square"></i>
       <i class="fas fa-grip-lines-vertical"></i>
       <!-- drawing board -->
       <div class="black"><!-- Black--></div>
@@ -85,7 +92,8 @@
     //font awesome icon selector
     let rectTool = document.querySelector(".fa-square");
     let lineTool = document.querySelector(".fa-grip-lines-vertical");
-    let cTool = "rectTool";
+    let pensilTool = document.querySelector(".fa-pencil-alt");
+    let cTool = "pensilTool";
 
     let body = document.querySelector("body");
     //this line gives us the tool to draw on that canvas
@@ -98,6 +106,7 @@
     let blueColor = document.querySelector(".blue");
     let blackColor = document.querySelector(".black");
 
+    //event listeners to change the color of the pointer
     blackColor.addEventListener("click", () => {
       tool.strokeStyle = "black";
     });
@@ -119,6 +128,9 @@
     // tool.strokeRect(50, 50, 500, 200);
 
     //tool change logic
+    pensilTool.addEventListener("click", () => {
+      cTool = "pensilTool";
+    });
     rectTool.addEventListener("click", () => {
       cTool = "rectTool";
     });
@@ -126,31 +138,41 @@
       cTool = "lineTool";
     });
 
+    //extra spaces on top and left of the board
     let boardTop = canvasBoard.getBoundingClientRect().top;
     let boardLeft = canvasBoard.getBoundingClientRect().left;
     let ix, iy, fx, fy;
+    let drawingMode = false;
+
+    //mouse event listeners
     body.addEventListener("mousedown", (e) => {
-      console.log(e);
+      drawingMode = true;
+      // console.log(e);
       //   let xPos = e.clientX;
       //   let yPos = e.clientY;
-      ix = e.clientX;
+      tool.beginPath();
+      ix = e.clientX - boardLeft;
       iy = e.clientY - boardTop;
-      console.log(xPos, yPos);
+      // console.log(xPos, yPos);
+      tool.moveTo(ix, iy);
     });
 
     body.addEventListener("mouseup", (e) => {
+      drawingMode = false;
       console.log(e);
       //   let xPos = e.clientX;
       //   let yPos = e.clientY;
-      fx = e.clientX + boardLeft;
+      fx = e.clientX - boardLeft;
       fy = e.clientY - boardTop;
 
       let width = fx - ix;
       let height = fy - iy;
 
       if (cTool == "rectTool") {
+        //to draw a rectangle
         tool.strokeRect(ix, iy, width, height);
-      } else {
+      } else if (cTool == "lineTool") {
+        //to draw a line
         tool.beginPath();
         tool.moveTo(ix, iy);
         tool.lineTo(fx, fy);
@@ -158,6 +180,18 @@
       }
       //   tool.strokeRect(ix, iy, fx - ix, fy - iy);
       console.log(xPos, yPos);
+    });
+
+    body.addEventListener("mousemove", (e) => {
+      if (drawingMode == false) return;
+      if (cTool == "pensilTool") {
+        fx = e.clientX - boardLeft;
+        fy = e.clientY - boardTop;
+        tool.lineTo(fx, fy);
+        tool.stroke();
+        ix = fx;
+        iy = fy;
+      }
     });
   </script>
 </html>
