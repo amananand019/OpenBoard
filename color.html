@@ -73,10 +73,14 @@
     </style>
 
     <script>
-      let colorArea = document.getElementById("#color-area");
+      let colorArea = document.querySelector("#color-area");
       let redColor = document.querySelector("#red");
       let greenColor = document.querySelector("#green");
       let blueColor = document.querySelector("#blue");
+
+      redColor.addEventListener("click", () => {
+        colorArea.style.backgroundColor = "red";
+      });
     </script>
   </head>
   <body>
