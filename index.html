@@ -148,6 +148,7 @@
           // eraser.style.border = "1px solid red";
           cTool = "pencil";
           tool.strokeStyle = "red";
+          tool.lineWidth = pencilSize;
         }
       });
       eraser.addEventListener("click", function (e) {
@@ -163,6 +164,8 @@
           for (let i = 0; i < options.length; i++) {
             options[i].style.display = "none";
           }
+
+          tool.lineWidth = eraserSize;
         }
       });
       rect.addEventListener("click", function (e) {
@@ -177,6 +180,7 @@
           // eraser.style.border = "1px solid red";
           cTool = "rect";
           tool.strokeStyle = "red";
+          tool.lineWidth = rectSize;
         }
       });
       line.addEventListener("click", function (e) {
@@ -191,6 +195,7 @@
           // eraser.style.border = "1px solid red";
           cTool = "line";
           tool.strokeStyle = "red";
+          tool.lineWidth = lineSize;
         }
       });
     </script>
@@ -208,6 +213,110 @@
       });
       blueColor.addEventListener("click", function () {
         tool.strokeStyle = "lightskyblue";
+      });
+    </script>
+
+    <script>
+      let pencilSize = 2;
+      let eraserSize = 5;
+      let rectSize = 2;
+      let lineSize = 2;
+
+      let sizeBoxArr = document.querySelectorAll(".size-box");
+
+      sizeBoxArr[0].addEventListener("click", (e) => {
+        let elems = ["size1", "size2", "size3", "size4"];
+        //class
+        //jispe
+        console.log(e.target);
+        let allTheClasses = e.target.classList;
+        let firstClass = allTheClasses[0];
+        let test = elems.includes(firstClass);
+
+        if (test) {
+          if (firstClass == "size1") {
+            pencilSize = 2;
+          } else if (firstClass == "size2") {
+            pencilSize = 4;
+          } else if (firstClass == "size3") {
+            pencilSize = 6;
+          } else if (firstClass == "size4") {
+            pencilSize = 8;
+          }
+        }
+
+        tool.lineWidth = pencilSize;
+      });
+
+      sizeBoxArr[1].addEventListener("click", (e) => {
+        let elems = ["size1", "size2", "size3", "size4"];
+        //class
+        //jispe
+        console.log(e.target);
+        let allTheClasses = e.target.classList;
+        let firstClass = allTheClasses[0];
+        let test = elems.includes(firstClass);
+
+        if (test) {
+          if (firstClass == "size1") {
+            eraserSize = 5;
+          } else if (firstClass == "size2") {
+            eraserSize = 10;
+          } else if (firstClass == "size3") {
+            eraserSize = 15;
+          } else if (firstClass == "size4") {
+            eraserSize = 20;
+          }
+        }
+
+        tool.lineWidth = eraserSize;
+      });
+      sizeBoxArr[2].addEventListener("click", (e) => {
+        let elems = ["size1", "size2", "size3", "size4"];
+        //class
+        //jispe
+        console.log(e.target);
+        let allTheClasses = e.target.classList;
+        let firstClass = allTheClasses[0];
+        let test = elems.includes(firstClass);
+
+        if (test) {
+          if (firstClass == "size1") {
+            rectSize = 2;
+          } else if (firstClass == "size2") {
+            rectSize = 4;
+          } else if (firstClass == "size3") {
+            rectSize = 6;
+          } else if (firstClass == "size4") {
+            rectSize = 8;
+          }
+        }
+
+        tool.lineWidth = rectSize;
+      });
+
+      sizeBoxArr[3].addEventListener("click", (e) => {
+        let elems = ["size1", "size2", "size3", "size4"];
+        //class
+        //jispe
+        console.log(e.target);
+        let allTheClasses = e.target.classList;
+        let firstClass = allTheClasses[0];
+        let test = elems.includes(firstClass);
+
+        if (test) {
+          if (firstClass == "size1") {
+            lineSize = 2;
+          } else if (firstClass == "size2") {
+            lineSize = 4;
+          } else if (firstClass == "size3") {
+            lineSize = 6;
+          } else if (firstClass == "size4") {
+            lineSize = 8;
+          }
+        }
+
+        tool.lineWidth = lineSize;
       });
     </script>
   </body>
