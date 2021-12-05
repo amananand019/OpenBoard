@@ -74,6 +74,10 @@
       let body = document.querySelector("body");
       canvasBoard.height = window.innerHeight;
       canvasBoard.width = window.innerWidth;
+
+      //   tool strokeStyle should be changed after setting canvas dimensions
+      //   otherwise it will reset the strokeStyle to default black color
+      tool.strokeStyle = "red";
     </script>
 
     <!-- pencil, rect, line code  -->
@@ -86,14 +90,14 @@
       body.addEventListener("mousedown", function (e) {
         iX = e.clientX + boardLeft;
         iY = e.clientY - boardTop;
-        if (cTool == "pencil") {
+        if (cTool == "pencil" || cTool == "eraser") {
           drawingMode = true;
           tool.beginPath();
           tool.moveTo(iX, iY);
         }
       });
       body.addEventListener("mouseup", function (e) {
-        if (cTool == "pencil") {
+        if (cTool == "pencil" || cTool == "eraser") {
           drawingMode = false;
         } else if (cTool == "rect" || cTool == "line") {
           // rect, line
@@ -143,6 +147,7 @@
           }
           // eraser.style.border = "1px solid red";
           cTool = "pencil";
+          tool.strokeStyle = "red";
         }
       });
       eraser.addEventListener("click", function (e) {
@@ -154,6 +159,7 @@
           // eraser.style.border = "1px solid red";
           // koi aur clicked aur usko options visible to wo remove ho jaaye
           cTool = "eraser";
+          tool.strokeStyle = "white";
           for (let i = 0; i < options.length; i++) {
             options[i].style.display = "none";
           }
@@ -170,6 +176,7 @@
           }
           // eraser.style.border = "1px solid red";
           cTool = "rect";
+          tool.strokeStyle = "red";
         }
       });
       line.addEventListener("click", function (e) {
@@ -183,6 +190,7 @@
           }
           // eraser.style.border = "1px solid red";
           cTool = "line";
+          tool.strokeStyle = "red";
         }
       });
     </script>
