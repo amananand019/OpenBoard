@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .fas {
+        font-size: 2rem;
+        margin-right: 30px;
+        margin-left: 30px;
+      }
+
+      .far {
+        font-size: 2rem;
+        margin-right: 30px;
+        margin-left: 30px;
+      }
+
+      .icon-pallet {
+        height: 50px;
+        background-color: lightgrey;
+        margin-left: 100px;
+        margin-right: 100px;
+        margin-top: 8px;
+        border-radius: 1em;
+        /* tools */
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+
+      .red {
+        background-color: red;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+      .green {
+        background-color: green;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+
+      .blue {
+        background-color: blue;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+
+      .black {
+        background-color: black;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- <h1>Canvas Example</h1> -->
+    <!-- These are font awesome icons -->
+    <div class="icon-pallet">
+      <i class="fas fa-pencil-alt"></i>
+      <i class="far fa-square"></i>
+      <i class="fas fa-grip-lines-vertical"></i>
+      <!-- drawing board -->
+      <div class="black"><!-- Black--></div>
+      <div class="red"><!-- Red --></div>
+      <div class="green"><!-- Green --></div>
+      <div class="blue"><!-- Blue --></div>
+    </div>
+    <canvas></canvas>
+  </body>
+  <!-- html js inject -->
+  <script>
+    let canvasBoard = document.querySelector("canvas");
+    // default height and width is smaller
+    // canvasBoard.height = "100";
+    canvasBoard.height = window.innerHeight;
+    canvasBoard.width = window.innerWidth;
+
+    //font awesome icon selector
+    let rectTool = document.querySelector(".fa-square");
+    let lineTool = document.querySelector(".fa-grip-lines-vertical");
+    let pensilTool = document.querySelector(".fa-pencil-alt");
+    let cTool = "pensilTool";
+
+    let body = document.querySelector("body");
+    //this line gives us the tool to draw on that canvas
+    let tool = canvasBoard.getContext("2d");
+    tool.strokeStyle = "black";
+
+    //to change the color of the pensil stroke
+    let redColor = document.querySelector(".red");
+    let greenColor = document.querySelector(".green");
+    let blueColor = document.querySelector(".blue");
+    let blackColor = document.querySelector(".black");
+
+    //event listeners to change the color of the pointer
+    blackColor.addEventListener("click", () => {
+      tool.strokeStyle = "black";
+    });
+    redColor.addEventListener("click", () => {
+      tool.strokeStyle = "red";
+    });
+    greenColor.addEventListener("click", () => {
+      tool.strokeStyle = "green";
+    });
+    blueColor.addEventListener("click", () => {
+      tool.strokeStyle = "blue";
+    });
+
+    //rectangle build
+    tool.fillStyle = "purple";
+    //makes an area filled with color
+    // tool.fillRect(0, 0, 500, 200);
+    //makes an area will a border
+    // tool.strokeRect(50, 50, 500, 200);
+
+    //tool change logic
+    pensilTool.addEventListener("click", () => {
+      cTool = "pensilTool";
+    });
+    rectTool.addEventListener("click", () => {
+      cTool = "rectTool";
+    });
+    lineTool.addEventListener("click", () => {
+      cTool = "lineTool";
+    });
+
+    //extra spaces on top and left of the board
+    let boardTop = canvasBoard.getBoundingClientRect().top;
+    let boardLeft = canvasBoard.getBoundingClientRect().left;
+    let ix, iy, fx, fy;
+    let drawingMode = false;
+
+    //mouse event listeners
+    body.addEventListener("mousedown", (e) => {
+      drawingMode = true;
+      // console.log(e);
+      //   let xPos = e.clientX;
+      //   let yPos = e.clientY;
+      tool.beginPath();
+      ix = e.clientX - boardLeft;
+      iy = e.clientY - boardTop;
+      // console.log(xPos, yPos);
+      tool.moveTo(ix, iy);
+    });
+
+    body.addEventListener("mouseup", (e) => {
+      drawingMode = false;
+      console.log(e);
+      //   let xPos = e.clientX;
+      //   let yPos = e.clientY;
+      fx = e.clientX - boardLeft;
+      fy = e.clientY - boardTop;
+
+      let width = fx - ix;
+      let height = fy - iy;
+
+      if (cTool == "rectTool") {
+        //to draw a rectangle
+        tool.strokeRect(ix, iy, width, height);
+      } else if (cTool == "lineTool") {
+        //to draw a line
+        tool.beginPath();
+        tool.moveTo(ix, iy);
+        tool.lineTo(fx, fy);
+        tool.stroke();
+      }
+      //   tool.strokeRect(ix, iy, fx - ix, fy - iy);
+      console.log(xPos, yPos);
+    });
+
+    body.addEventListener("mousemove", (e) => {
+      if (drawingMode == false) return;
+      if (cTool == "pensilTool") {
+        fx = e.clientX - boardLeft;
+        fy = e.clientY - boardTop;
+        tool.lineTo(fx, fy);
+        tool.stroke();
+        ix = fx;
+        iy = fy;
+      }
+    });
+  </script>
+</html>
